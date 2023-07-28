@@ -22,6 +22,6 @@ public class MixinTileCrystalTileEntitySkull extends TileEntity {
                 }
             }
         }
-        return false;
+        return true;
     }
 }
