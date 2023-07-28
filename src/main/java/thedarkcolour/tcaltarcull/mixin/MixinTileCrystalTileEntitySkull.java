@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 
 import thaumcraft.common.tiles.TileCrystal;
 import thedarkcolour.tcaltarcull.AltarBounds;
+import thedarkcolour.tcaltarcull.Config;
 import thedarkcolour.tcaltarcull.TcAltarCull;
 
 @Mixin({ TileCrystal.class, TileEntitySkull.class })
@@ -15,6 +16,8 @@ public class MixinTileCrystalTileEntitySkull extends TileEntity {
     public boolean shouldRenderInPass(int pass) {
         if (super.shouldRenderInPass(pass)) {
             for (AltarBounds altarBounds : TcAltarCull.TRACKED.values()) {
+                if (Config.disableRenderEntirely) return false;
+
                 if ((xCoord >= altarBounds.minX && xCoord <= altarBounds.maxX)
                     && (yCoord >= altarBounds.minY && yCoord <= altarBounds.maxY)
                     && (zCoord >= altarBounds.minZ && zCoord <= altarBounds.maxZ)) {

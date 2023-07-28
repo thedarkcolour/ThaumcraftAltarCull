@@ -10,6 +10,7 @@ public class Config {
 
     public static int maxAltarRenderDistance = 5;
     public static int cullUpdateInterval = 10;
+    public static boolean disableRenderEntirely = false;
 
     public static void initConfig(File configFile) {
         configuration = new Configuration(configFile);
@@ -35,6 +36,12 @@ public class Config {
             1,
             20,
             "The N value to use for running culling checks every N ticks");
+        disableRenderEntirely = configuration.getBoolean(
+            "disableRenderEntirely",
+            Configuration.CATEGORY_GENERAL,
+            disableRenderEntirely,
+            "Whether to just disable rendering of altar stabilizers entirely without using culling checks. If you don't care about what your altar room looks like, then use this option!"
+        );
 
         if (configuration.hasChanged()) {
             configuration.save();
