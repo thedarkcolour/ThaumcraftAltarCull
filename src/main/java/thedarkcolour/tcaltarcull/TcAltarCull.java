@@ -14,7 +14,7 @@ import java.util.List;
     version = Tags.VERSION,
     name = Tags.MODNAME,
     dependencies = "required-after:Thaumcraft",
-    guiFactory = "thedarkcolour.tcaltarcull.TcAltarCull$GuiFactory", acceptedMinecraftVersions = "[1.7.10]"
+    guiFactory = "thedarkcolour.tcaltarcull.TcAltarCullGuiFactory", acceptedMinecraftVersions = "[1.7.10]"
 )
 public class TcAltarCull {
     public static final Logger LOGGER = LogManager.getLogger(Tags.MODID);
