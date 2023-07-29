@@ -35,6 +35,6 @@
  */
 dependencies {
     // These files are available on CurseForge, download them from there and put them into the libs folder
-    devOnlyNonPublishable(rfg.deobf(project.files("libs/Baubles-1.7.10-1.0.1.10.jar")))
-    devOnlyNonPublishable(rfg.deobf(project.files("libs/Thaumcraft-1.7.10-4.2.3.5.jar")))
+    devOnlyNonPublishable(rfg.deobf("com.github.GTNewHorizons:Baubles:1.0.1.14"))
+    devOnlyNonPublishable(rfg.deobf("thaumcraft:Thaumcraft:1.7.10-4.2.3.5"))
 }
