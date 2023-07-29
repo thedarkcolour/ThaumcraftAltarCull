@@ -1,26 +1,13 @@
 package thedarkcolour.tcaltarcull;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
-import cpw.mods.fml.client.IModGuiFactory;
 import cpw.mods.fml.common.FMLCommonHandler;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.world.ChunkPosition;
-import net.minecraft.world.World;
-import net.minecraftforge.event.world.WorldEvent;
-
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 @Mod(
     modid = Tags.MODID,
@@ -31,7 +18,7 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 )
 public class TcAltarCull {
     public static final Logger LOGGER = LogManager.getLogger(Tags.MODID);
-    public static final Map<ChunkPosition, AltarBounds> TRACKED = new HashMap<>();
+    public static final List<AltarBounds> TRACKED = new ArrayList<>();
 
     public TcAltarCull() {
         FMLCommonHandler.instance().bus().register(this);
@@ -40,57 +27,5 @@ public class TcAltarCull {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         Config.initConfig(event.getSuggestedConfigurationFile());
-    }
-
-    @SubscribeEvent
-    public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.modID.equals(Tags.MODID)) {
-            Config.reloadConfig();
-        }
-    }
-
-    @SubscribeEvent
-    public void onTick(TickEvent.ClientTickEvent event) {
-        World level = Minecraft.getMinecraft().theWorld;
-        EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-        if (level == null || player == null) return;
-
-        if (event.phase == TickEvent.Phase.END && level.getWorldTime() % 10 == 0) {
-            for (AltarBounds bounds : TRACKED.values()) {
-                bounds.shouldRender = (player.posX >= (bounds.minX - Config.maxAltarRenderDistance)
-                    && player.posX <= (bounds.maxX + Config.maxAltarRenderDistance))
-                    && (player.posY >= (bounds.minY - Config.maxAltarRenderDistance)
-                    && player.posY <= (bounds.maxY + Config.maxAltarRenderDistance))
-                    && (player.posZ >= (bounds.minZ - Config.maxAltarRenderDistance)
-                    && player.posZ <= (bounds.maxZ + Config.maxAltarRenderDistance));
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public void onLeave(WorldEvent.Unload event) {
-        TRACKED.clear();
-    }
-
-    public static class GuiFactory implements IModGuiFactory {
-        @Override
-        public void initialize(Minecraft minecraftInstance) {
-
-        }
-
-        @Override
-        public Class<? extends GuiScreen> mainConfigGuiClass() {
-            return TcAltarCullConfigGui.class;
-        }
-
-        @Override
-        public Set<RuntimeOptionCategoryElement> runtimeGuiCategories() {
-            return null;
-        }
-
-        @Override
-        public RuntimeOptionGuiHandler getHandlerFor(RuntimeOptionCategoryElement element) {
-            return null;
-        }
     }
 }

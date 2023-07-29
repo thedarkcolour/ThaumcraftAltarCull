@@ -14,7 +14,7 @@ import thedarkcolour.tcaltarcull.TcAltarCull;
 public class MixinTileCrystalTileEntitySkull extends TileEntity {
     public boolean shouldRenderInPass(int pass) {
         if (super.shouldRenderInPass(pass)) {
-            for (AltarBounds altarBounds : TcAltarCull.TRACKED.values()) {
+            for (AltarBounds altarBounds : TcAltarCull.TRACKED) {
                 if (Config.disableRenderEntirely) return false;
 
                 if ((xCoord >= altarBounds.minX && xCoord <= altarBounds.maxX)
