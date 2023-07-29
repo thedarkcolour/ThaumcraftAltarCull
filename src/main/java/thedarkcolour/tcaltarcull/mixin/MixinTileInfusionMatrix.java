@@ -25,8 +25,7 @@ public class MixinTileInfusionMatrix extends TileThaumcraft {
             );
 
             TcAltarCull.TRACKED.put(pos, box);
-            TcAltarCull.LOGGER
-                .info("Now tracking altar at (" + pos.chunkPosX + ", " + pos.chunkPosY + ", " + pos.chunkPosZ + ")");
+            TcAltarCull.LOGGER.debug("Now tracking altar at (" + pos.chunkPosX + ", " + pos.chunkPosY + ", " + pos.chunkPosZ + ")");
         }
     }
 }

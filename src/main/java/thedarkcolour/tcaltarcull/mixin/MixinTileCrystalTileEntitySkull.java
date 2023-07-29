@@ -12,7 +12,6 @@ import thedarkcolour.tcaltarcull.TcAltarCull;
 
 @Mixin({ TileCrystal.class, TileEntitySkull.class })
 public class MixinTileCrystalTileEntitySkull extends TileEntity {
-
     public boolean shouldRenderInPass(int pass) {
         if (super.shouldRenderInPass(pass)) {
             for (AltarBounds altarBounds : TcAltarCull.TRACKED.values()) {
@@ -24,7 +23,9 @@ public class MixinTileCrystalTileEntitySkull extends TileEntity {
                     return altarBounds.shouldRender;
                 }
             }
+
+            return true;
         }
-        return true;
+        return false;
     }
 }

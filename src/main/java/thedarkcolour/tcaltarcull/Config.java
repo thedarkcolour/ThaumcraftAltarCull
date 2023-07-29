@@ -5,7 +5,6 @@ import java.io.File;
 import net.minecraftforge.common.config.Configuration;
 
 public class Config {
-
     public static Configuration configuration;
 
     public static int maxAltarRenderDistance = 5;
